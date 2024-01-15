@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
-public class RegisterController extends Controller {
+public class RegisterController{
 
 
     private final AuthenticationService authenticationService;
@@ -30,7 +30,7 @@ public class RegisterController extends Controller {
         UserResponse user = authenticationService.register(registerRequest);;
 
         return ResponseEntity.ok( ).body(
-                new ApiResponse(HttpStatus.CREATED,
+                ApiResponse.make(HttpStatus.CREATED,
                         "User Registration Success",
                         Optional.ofNullable(user)));
     }

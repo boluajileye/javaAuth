@@ -6,8 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 import static bolu.ajileye.authfinal.config.SpringSecurityConfig.*;
 
@@ -49,11 +53,26 @@ public class User extends Base{
     @Column(nullable = false)
     private Boolean isActive;
 
+    @Column(nullable = true)
+    private Boolean verse;
+
     @Column(nullable = false)
     private Boolean isBlocked;
 
     @Column(nullable = true)
     private LocalDateTime emailVerifiedAt;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Car> car;
+
+    @ManyToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Course> courses;
 
     @PrePersist
     public void mutators(){

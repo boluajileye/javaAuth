@@ -24,10 +24,18 @@ public class ApiResponse {
         this.data = data;
     }
 
+    public ApiResponse(HttpStatus statusCode, String message) {
+        this(statusCode, message, Optional.empty());
+    }
+
     private String generateStatusfromStatusCode(int statusCode) {
         if (statusCode < 300) {
             return "SUCCESS";
         }
             return "ERROR";
+    }
+
+    public static ApiResponse make(HttpStatus statusCode, String message, Optional<Object> data){
+        return new ApiResponse(statusCode, message, data);
     }
 }
