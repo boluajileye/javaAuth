@@ -9,9 +9,14 @@ import org.springframework.core.task.AsyncTaskExecutor;
 
 @Slf4j
 public class BaseService {
-    private RegisterEvent registerEvent;
-    private AsyncTaskExecutor asyncTaskExecutor;
+
+
     protected void logger(String message){
         log.info(message);
+    }
+
+
+    public void sendEmail(){
+
     }
 }

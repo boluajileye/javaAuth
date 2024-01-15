@@ -12,7 +12,7 @@ public class AppEventPublisher {
     private ApplicationEventPublisher applicationEventPublisher;
 
     public void publishRegisterEvent(final User user) {
-        RegisterEvent registerEvent = new RegisterEvent(user);
+        RegisterEvent registerEvent = new RegisterEvent(this, user);
         applicationEventPublisher.publishEvent(registerEvent);
     }
 }
