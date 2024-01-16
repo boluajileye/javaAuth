@@ -62,9 +62,9 @@ public class AuthenticationServiceImplementation extends BaseService implements 
 
         User user =  userRepository.save(userData);
 
-        CompletableFuture.runAsync(() -> {
+//        CompletableFuture.runAsync(() -> {
             appEvent.publishRegisterEvent(user);
-        });
+//        });
         return UserResponse.builder()
                             .id(user.getId())
                             .email(user.getEmail())
@@ -97,13 +97,6 @@ public class AuthenticationServiceImplementation extends BaseService implements 
         var refreshToken = jwtUtils.generateRefreshToken(userDetails);
 
 
-//        RestTemplate restTemplate = new RestTemplate();
-//            BibleResponse result = restTemplate.getForObject("https://bible-api.com/john 3:16", BibleResponse.class);
-//       logger(result.toString());
-        CompletableFuture.runAsync(() -> {
-            testAsync();
-        });
-//        user.setVerse(result.verses[0].text);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -112,20 +105,6 @@ public class AuthenticationServiceImplementation extends BaseService implements 
     }
 
 
-    public void testAsync() {
-        String[] results = { "one", "two", "three"};
-
-        for (int i = 0; i < results.length; i++){
-            System.out.println("Execute method asynchronously. "
-                + Thread.currentThread().getName());
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            logger(results[i]);
-        }
-    }
     @Override
     public void addCar(CarStoreRequest request) throws Exception {
         User user = authHelper.getAuthenticatedUser();
