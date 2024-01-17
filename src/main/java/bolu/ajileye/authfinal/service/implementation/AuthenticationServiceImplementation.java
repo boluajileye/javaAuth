@@ -62,9 +62,9 @@ public class AuthenticationServiceImplementation extends BaseService implements 
 
         User user =  userRepository.save(userData);
 
-//        CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(() -> {
             appEvent.publishRegisterEvent(user);
-//        });
+        });
         return UserResponse.builder()
                             .id(user.getId())
                             .email(user.getEmail())
